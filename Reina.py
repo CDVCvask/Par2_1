@@ -7,9 +7,18 @@ class Reina:
         self.insitucion = insitucion
         self.municipio = municipio
     #código, nombre, edad, institución educativa, municipio
-    pass
 class Jurado:
     pass
+class Mostrar_Reinas:
+    def __init__(self):
+        self.Reinas = []
+        self.Jurados = []
+    def Puntaje_Reinas(self,reina,jurado,cultura,proyeccion,entrevista):
+        pass
+    def Agregar_Reina(self,reina):
+        self.Reinas.append(reina)
+    def Agregar_Jurado(self,jurado):
+        self.Jurados.append(jurado)
 class Concurso_Reinas_app:
     def __init__(self):
         self.ventana = tk.Tk()
@@ -21,4 +30,5 @@ class Concurso_Reinas_app:
         self.ventana.mainloop()
     def menu(self):
         barra = tk.Menu(self.ventana)
+
 
