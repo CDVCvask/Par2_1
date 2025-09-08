@@ -13,6 +13,7 @@ class Jurado:
         self.codigo = codigo
         self.nombre = nombre
         self.especialidad = especialidad
+        self.calificaciones = {}
 class Mostrar_Reinas:
     def __init__(self):
         self.Reinas = []
@@ -38,8 +39,12 @@ class Mostrar_Reinas:
                     if proyeccion >= 0 and proyeccion <= 10:
                         promedio =  cultura + entrevista + proyeccion
                         promedio = promedio / 3
+                        for Jurado in self.Jurados:
+                            if Jurado.codigo == jurado:
+                                Jurado.Calificaciones[reina] = {'Cultura':cultura,'Entrevista':entrevista,'Proyeccion':proyeccion,'Promedio':promedio}
         else:
             print("El codigo de la reina o el jurado no es valido")
+
     def Ordenar_Reinas(self,):
         pass
     def Agregar_Reina(self,reina):
