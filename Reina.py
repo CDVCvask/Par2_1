@@ -6,6 +6,7 @@ class Reina:
         self.edad = edad
         self.insitucion = insitucion
         self.municipio = municipio
+        self.puntaje = 0
     #código, nombre, edad, institución educativa, municipio
 class Jurado:
     def __init__(self,codigo,nombre,especialidad):
@@ -39,6 +40,8 @@ class Mostrar_Reinas:
                         promedio = promedio / 3
         else:
             print("El codigo de la reina o el jurado no es valido")
+    def Ordenar_Reinas(self,):
+        pass
     def Agregar_Reina(self,reina):
         self.Reinas.append(reina)
     def Agregar_Jurado(self,jurado):
