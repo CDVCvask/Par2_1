@@ -44,11 +44,23 @@ class Mostrar_Reinas:
                                 Jurado.Calificaciones[reina] = {'Cultura':cultura,'Entrevista':entrevista,'Proyeccion':proyeccion,'Promedio':promedio}
         else:
             print("El codigo de la reina o el jurado no es valido")
+    def Calificacion(self):
+        total = 0
+        for Reina in self.Reinas:
+            for code,value in Jurado.calificaciones.items():
+                if Reina.codigo == code:
+                    total = total + value['Promedio']
+            Reina.puntaje = total
+    def Ordenar_Reinas(self,reinas):
+        if len(self.Jurados) <= 1:
+            return reinas
+        low = []
+        same = []
+        high = []
 
-    def Ordenar_Reinas(self,):
-        pass
     def Agregar_Reina(self,reina):
-        self.Reinas.append(reina)
+        if reina in self.Jurados:
+            self.Reinas.append(reina)
     def Agregar_Jurado(self,jurado):
         self.Jurados.append(jurado)
 class Concurso_Reinas_app:
