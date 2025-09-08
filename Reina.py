@@ -57,12 +57,28 @@ class Mostrar_Reinas:
         low = []
         same = []
         high = []
-
+        piv = 0
+        for Reina in reinas:
+            piv = Reina.puntaje
+            break
+        for Reina in reinas:
+            if Reina.puntaje < piv:
+                low.append(Reina)
+            if Reina.puntaje > piv:
+                high.append(Reina)
+            if Reina.puntaje == piv:
+                same.append(Reina)
+        return self.Ordenar_Reinas(high) + same + self.Ordenar_Reinas(low)
     def Agregar_Reina(self,reina):
         if reina in self.Jurados:
-            self.Reinas.append(reina)
+            print("Esta reina ya existe")
+        else:
+            self.Jurados.append(reina)
     def Agregar_Jurado(self,jurado):
-        self.Jurados.append(jurado)
+        if jurado in self.Jurados:
+            print("Esta jurado ya existe")
+        else:
+            self.Jurados.append(jurado)
 class Concurso_Reinas_app:
     def __init__(self):
         self.ventana = tk.Tk()
