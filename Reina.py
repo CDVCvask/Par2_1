@@ -109,7 +109,6 @@ class Concurso_Reinas_app:
         inscribir_ventana = tk.Tk()
         inscribir_ventana.title("Inscripcion de candidata")
         inscribir_ventana.geometry("600x400")
-
         titulo = tk.Label(inscribir_ventana, text="Inscripcion de candidata", font=("Arial", 16, "bold"))
         nombre = tk.Label(inscribir_ventana, text="Ingrese el nombre de la candidata: ", font=("Arial", 12))
         nombre_entrada = tk.Entry(inscribir_ventana, font=("Arial", 12))
@@ -122,7 +121,6 @@ class Concurso_Reinas_app:
         codeR = f"R{contR}"
         registrar = tk.Button(inscribir_ventana, text="REGISTRAR", font=("Arial", 12, "bold"),
                               command=lambda: self.inscribir_Reina(codeR,nombre_entrada.get(),edad_entrada.get(),insti_entrada.get(),muni_entrada.get()))
-        #contR = contR + 1
         titulo.grid(row=0, column=2, pady=10)
         nombre.grid(row=1, column=1, pady=10)
         nombre_entrada.grid(row=1, column=2, pady=10)
@@ -142,9 +140,13 @@ class Concurso_Reinas_app:
         titulo=tk.Label(mostar_ventana, text="Mostrar candidatas", font=("Arial", 16, "bold"))
         titulo.grid(row=0, column=0, pady=10)
         x=1
-        for reina in mos.Reinas:
-            candidata=tk.Label(mostar_ventana, text=f"{reina.nombre}", font=("Arial", 12))
-            candidata.grid(row=x, column=1, pady=10)
+        #for reina in mos.Reinas:
+            #candidata=tk.Label(mostar_ventana, text=f"{reina.nombre}", font=("Arial", 12))
+            #candidata.grid(row=x, column=1, pady=10)
+            #x=x+1
+        for jurado in mos.Jurados:
+            Jurado = tk.Label(mostar_ventana, text=f"{jurado.nombre}", font=("Arial", 12))
+            Jurado.grid(row=x, column=1, pady=10)
             x=x+1
     def Inscribir_Jurado(self):
         inscribir_ventana = tk.Tk()
@@ -155,7 +157,8 @@ class Concurso_Reinas_app:
         nombre_entrada = tk.Entry(inscribir_ventana, font=("Arial", 12))
         especialidad = tk.Label(inscribir_ventana, text="Ingrese la especialidad del Jurado: ", font=("Arial", 12))
         especialidad_entrada = tk.Entry(inscribir_ventana, font=("Arial", 12))
-        registar = tk.Button(inscribir_ventana,text="Registar",font=("Arial", 12),command =lambda:self.registrar_jurado(codigo,nombre_entrada.get(), especialidad_entrada.get()))
+        codigo_J = f"J{contJ}"
+        registar = tk.Button(inscribir_ventana,text="Registar",font=("Arial", 12),command =lambda:self.registrar_jurado(codigo_J,nombre_entrada.get(), especialidad_entrada.get()))
 
 
         #en esta funcion colocá bien el codigo y en la funcion registrar_jurado creá el objeto de jurado y agregalo bien como lo sabes jaja
@@ -179,7 +182,11 @@ class Concurso_Reinas_app:
         x.destroy()
     def registrar_jurado(self,codigo,nombre,especialidad):
         x = tk.Tk()
-        pass
+        x.title("Registrando")
+        nuevo_jurado = Jurado(codigo,nombre,especialidad)
+        mos.Agregar_Jurado(nuevo_jurado)
+contR = contR + 1
+contJ = contJ + 1
 concurso = Concurso_Reinas_app()
 
 
