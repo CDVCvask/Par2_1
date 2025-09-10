@@ -32,7 +32,7 @@ class Mostrar_Reinas:
                 allow = 1
         for Jurado in self.Jurados:
             if Jurado.codigo == jurado:
-                allow2 = 0
+                allow2 = 1
         if allow == 1 and allow2 == 1:
             if cultura >= 0 and cultura <= 10:
                 if entrevista >= 0 and entrevista <= 10:
@@ -97,9 +97,9 @@ class Concurso_Reinas_app:
         opciones = tk.Menu(barra, tearoff=0)
         opciones.add_command(label="Registrar candidata.", command=self.inscribir_candidata)
         opciones.add_command(label="Registrar jurado", command=self.Inscribir_Jurado)
-        opciones.add_command(label="Registrar evaluacion", command=self.ventana.destroy)
+        opciones.add_command(label="Registrar evaluacion", command=self.ingresar_evaluacion)
         opciones.add_command(label="Mostrar candidatas", command=self.Mostrar_candidatas)
-        opciones.add_command(label="Ranking", command=self.ventana.destroy)
+        opciones.add_command(label="Ranking", command=self.ranking)
         opciones.add_separator()
         opciones.add_command(label="Salir", command=self.ventana.quit)
         barra.add_cascade(label="Opciones", menu=opciones)
@@ -161,11 +161,6 @@ class Concurso_Reinas_app:
         registar = tk.Button(inscribir_ventana,text="Registar",font=("Arial", 12),command =lambda:self.registrar_jurado(codigo_J,nombre_entrada.get(), especialidad_entrada.get()))
 
 
-        #en esta funcion colocá bien el codigo y en la funcion registrar_jurado creá el objeto de jurado y agregalo bien como lo sabes jaja
-
-
-
-
         titulo.grid(row=0, column=2, pady=10)
         nombre.grid(row=1, column=1, pady=10)
         nombre_entrada.grid(row=1, column=2, pady=10)
@@ -185,6 +180,92 @@ class Concurso_Reinas_app:
         x.title("Registrando")
         nuevo_jurado = Jurado(codigo,nombre,especialidad)
         mos.Agregar_Jurado(nuevo_jurado)
+        x.destroy()
+    def ingresar_evaluacion(self):
+        ventana_evaluacion = tk.Tk()
+        ventana_evaluacion.title("Evaluacion")
+        ventana_evaluacion.geometry("650x400")
+        titulo = tk.Label(ventana_evaluacion, text="Evaluacion de la Reina.", font=("Arial", 14,"bold"))
+        codReina = tk.Label(ventana_evaluacion, text="Ingrese el codigo de la reina para evaluarla: ", font=("Arial", 12))
+        codReina_entrada= tk.Entry(ventana_evaluacion,font=("Arial", 12))
+        codJurado=tk.Label(ventana_evaluacion, text="Ingrese el codigo del jurado que evalúa: ", font=("Arial", 12))
+        codJurado_entrada=tk.Entry(ventana_evaluacion,font=("Arial", 12))
+        subtitulo=tk.Label(ventana_evaluacion, text="Ingresando la evaluacion.", font=("Arial", 14, "bold"))
+        cultura=tk.Label(ventana_evaluacion, text="Puntuacion Cultura: ", font=("Arial", 12))
+        cultura_entrada=tk.Entry(ventana_evaluacion,font=("Arial", 12))
+        entrevista=tk.Label(ventana_evaluacion, text="Puntuacion Entrevista: ", font=("Arial", 12))
+        entrevista_entrada=tk.Entry(ventana_evaluacion,font=("Arial", 12))
+        proyeccion=tk.Label(ventana_evaluacion, text="Puntuacion Proyeccion: ", font=("Arial", 12))
+        proyeccion_entrada=tk.Entry(ventana_evaluacion,font=("Arial", 12))
+        registrar=tk.Button(ventana_evaluacion, text="Registrar evaluacion", font=("Arial", 12),
+        command=lambda: self.registrar_evaluacion(codReina_entrada.get(), codJurado_entrada.get(), cultura_entrada.get(), entrevista_entrada.get(),proyeccion_entrada.get()))
+
+        titulo.grid(row=0, column=2, pady=10)
+        codReina.grid(row=1, column=1, pady=10)
+        codReina_entrada.grid(row=1, column=2, pady=10)
+        codJurado.grid(row=2, column=1, pady=10)
+        codJurado_entrada.grid(row=2, column=2, pady=10)
+        subtitulo.grid(row=3, column=2, pady=10)
+        cultura.grid(row=4, column=1, pady=10)
+        cultura_entrada.grid(row=4, column=2, pady=10)
+        entrevista.grid(row=5, column=1, pady=10)
+        entrevista_entrada.grid(row=5, column=2, pady=10)
+        proyeccion.grid(row=6, column=1, pady=10)
+        proyeccion_entrada.grid(row=6, column=2, pady=10)
+        registrar.grid(row=7, column=2, pady=10)
+
+    def registrar_evaluacion(self,codReina,codJurado,cultura,entrevista,proyeccion):
+        x = tk.Tk()
+        x.title("Registrar evaluacion")
+        mos.Puntaje_Reinas(codReina,codJurado,cultura,proyeccion,entrevista)
+        x.destroy()
+
+    def ranking(self):
+        ventana_ranking = tk.Tk()
+        ventana_ranking.title("Ranking")
+        ventana_ranking.geometry("600x500")
+        rankingDeReinas= mos.Ordenar_Reinas(mos.Reinas)
+        titulo= tk.Label(ventana_ranking, text="Ranking de las reinas.", font=("Arial", 16, "bold"))
+        primerLugar= tk.Label(ventana_ranking, text="PRIMER LUGAR.", font=("Arial", 14, "bold"), fg="#cfa959")
+        segundoLugar=tk.Label(ventana_ranking, text="SEGUNDO LUGAR.", font=("Arial", 14, "bold"), fg="#939694")
+        tercerLugar=tk.Label(ventana_ranking, text="TERCER LUGAR.", font=("Arial", 14, "bold"), fg="#bf8970")
+        todas=tk.Label(ventana_ranking, text="El resto de participantes.", font=("Arial", 14, "bold"))
+
+        titulo.grid(row=0, column=2, pady=10)
+        primerLugar.grid(row=1, column=2, pady=10)
+        contador= 0
+        for reina in rankingDeReinas:
+            lugar=tk.Label(ventana_ranking, text=f"{reina.nombre}", font=("Arial", 13, "bold"))
+            lugar.grid(row=2, column=2, pady=10)
+            break
+        segundoLugar.grid(row=3, column=1, pady=10)
+        for reina in rankingDeReinas:
+            if contador == 1:
+                lugar= tk.Label(ventana_ranking, text=f"{reina.nombre}", font=("Arial", 12, "bold"))
+                lugar.grid(row=4, column=1, pady=10)
+                break
+            else:
+                contador=1
+        tercerLugar.grid(row=5, column=3, pady=10)
+        contador = 0
+        for reina in rankingDeReinas:
+            if contador == 2:
+                lugar=tk.Label(ventana_ranking,text=f"{reina.nombre}", font=("Arial", 11, "bold"))
+                lugar.grid(row=6, column=3, pady=10)
+            else:
+                contador+=1
+        todas.grid(row=7, column=2, pady=10)
+        contador = 0
+        x=4
+        for reina in rankingDeReinas:
+            if contador == 3:
+                lugar=tk.Label(ventana_ranking,text=f"{x}. {reina.nombre}", font=("Arial", 10, "bold"))
+                lugar.grid(row=x+4, column=2, pady=10)
+                x=x+1
+            else:
+                contador+=1
+
+
 contR = contR + 1
 contJ = contJ + 1
 concurso = Concurso_Reinas_app()
