@@ -27,13 +27,6 @@ class Mostrar_Reinas:
             proyeccion = int(proyeccion)
         except ValueError:
             print("Tipo de dato ingresado no es valido")
-        for Reina in self.Reinas:
-            if Reina.codigo == reina:
-                allow = 1
-        for Jurado in self.Jurados:
-            if Jurado.codigo == jurado:
-                allow2 = 1
-        if allow == 1 and allow2 == 1:
             if cultura >= 0 and cultura <= 10:
                 if entrevista >= 0 and entrevista <= 10:
                     if proyeccion >= 0 and proyeccion <= 10:
@@ -42,8 +35,6 @@ class Mostrar_Reinas:
                         for Jurado in self.Jurados:
                             if Jurado.codigo == jurado:
                                 Jurado.calificaciones[reina] = {'Cultura':cultura,'Entrevista':entrevista,'Proyeccion':proyeccion,'Promedio':promedio}
-        else:
-            print("El codigo de la reina o el jurado no es valido")
     def Calificacion(self):
         total = 0
         for Reina in self.Reinas:
@@ -221,6 +212,7 @@ class Concurso_Reinas_app:
         x = tk.Tk()
         x.title("Registrar evaluacion")
         mos.Puntaje_Reinas(codReina,codJurado,cultura,proyeccion,entrevista)
+        mos.Calificacion()
         x.destroy()
 
     def ranking(self):
