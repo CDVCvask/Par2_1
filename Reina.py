@@ -41,15 +41,16 @@ class Mostrar_Reinas:
                         promedio = promedio / 3
                         for Jurado in self.Jurados:
                             if Jurado.codigo == jurado:
-                                Jurado.Calificaciones[reina] = {'Cultura':cultura,'Entrevista':entrevista,'Proyeccion':proyeccion,'Promedio':promedio}
+                                Jurado.calificaciones[reina] = {'Cultura':cultura,'Entrevista':entrevista,'Proyeccion':proyeccion,'Promedio':promedio}
         else:
             print("El codigo de la reina o el jurado no es valido")
     def Calificacion(self):
         total = 0
         for Reina in self.Reinas:
-            for code,value in Jurado.calificaciones.items():
-                if Reina.codigo == code:
-                    total = total + value['Promedio']
+            for jurado in self.Jurados:
+                for code,value in jurado.calificaciones.items():
+                    if Reina.codigo == code:
+                        total = total + value['Promedio']
             Reina.puntaje = total
     def Ordenar_Reinas(self,reinas):
         if len(reinas) <= 1:
@@ -79,8 +80,10 @@ class Mostrar_Reinas:
             print("Esta jurado ya existe")
         else:
             self.Jurados.append(jurado)
-contR= 0
-contJ = 0
+global contR
+global contJ
+contR = 0
+ContJ = 0
 mos = Mostrar_Reinas()
 class Concurso_Reinas_app:
     def __init__(self):
@@ -119,6 +122,7 @@ class Concurso_Reinas_app:
         muni = tk.Label(inscribir_ventana, text="Ingrse el municipio del candidata: ", font=("Arial", 12))
         muni_entrada = tk.Entry(inscribir_ventana, font=("Arial", 12))
         codeR = f"R{contR}"
+        #contR = contR + 1
         registrar = tk.Button(inscribir_ventana, text="REGISTRAR", font=("Arial", 12, "bold"),
                               command=lambda: self.inscribir_Reina(codeR,nombre_entrada.get(),edad_entrada.get(),insti_entrada.get(),muni_entrada.get()))
         titulo.grid(row=0, column=2, pady=10)
@@ -158,6 +162,7 @@ class Concurso_Reinas_app:
         especialidad = tk.Label(inscribir_ventana, text="Ingrese la especialidad del Jurado: ", font=("Arial", 12))
         especialidad_entrada = tk.Entry(inscribir_ventana, font=("Arial", 12))
         codigo_J = f"J{contJ}"
+        contJ = contJ + 1
         registar = tk.Button(inscribir_ventana,text="Registar",font=("Arial", 12),command =lambda:self.registrar_jurado(codigo_J,nombre_entrada.get(), especialidad_entrada.get()))
 
 
