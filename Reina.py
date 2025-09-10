@@ -82,11 +82,11 @@ class Mostrar_Reinas:
             self.Jurados.append(jurado)
 global contR
 global contJ
-contR = 0
-ContJ = 0
 mos = Mostrar_Reinas()
 class Concurso_Reinas_app:
     def __init__(self):
+        self.contR = 0
+        self.contJ = 0
         self.ventana = tk.Tk()
         self.ventana.title("Reina")
         self.ventana.geometry("400x400")
@@ -109,6 +109,7 @@ class Concurso_Reinas_app:
         self.ventana.config(menu=barra)
 
     def inscribir_candidata(self):
+        global contR
         inscribir_ventana = tk.Tk()
         inscribir_ventana.title("Inscripcion de candidata")
         inscribir_ventana.geometry("600x400")
@@ -122,7 +123,7 @@ class Concurso_Reinas_app:
         muni = tk.Label(inscribir_ventana, text="Ingrse el municipio del candidata: ", font=("Arial", 12))
         muni_entrada = tk.Entry(inscribir_ventana, font=("Arial", 12))
         codeR = f"R{contR}"
-        #contR = contR + 1
+        contR = contR + 1
         registrar = tk.Button(inscribir_ventana, text="REGISTRAR", font=("Arial", 12, "bold"),
                               command=lambda: self.inscribir_Reina(codeR,nombre_entrada.get(),edad_entrada.get(),insti_entrada.get(),muni_entrada.get()))
         titulo.grid(row=0, column=2, pady=10)
@@ -148,11 +149,12 @@ class Concurso_Reinas_app:
             #candidata=tk.Label(mostar_ventana, text=f"{reina.nombre}", font=("Arial", 12))
             #candidata.grid(row=x, column=1, pady=10)
             #x=x+1
-        for jurado in mos.Jurados:
-            Jurado = tk.Label(mostar_ventana, text=f"{jurado.nombre}", font=("Arial", 12))
-            Jurado.grid(row=x, column=1, pady=10)
+        for reina in mos.Reinas:
+            Reina = tk.Label(mostar_ventana, text=f"{reina.nombre}--{reina.codigo}", font=("Arial", 12))
+            Reina.grid(row=x, column=1, pady=10)
             x=x+1
     def Inscribir_Jurado(self):
+        global contJ
         inscribir_ventana = tk.Tk()
         inscribir_ventana.title("Inscripcion de jurado")
         inscribir_ventana.geometry("600x400")
